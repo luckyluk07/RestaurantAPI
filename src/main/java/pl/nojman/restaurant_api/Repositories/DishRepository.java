@@ -1,9 +1,11 @@
 package pl.nojman.restaurant_api.Repositories;
 
+import org.springframework.stereotype.Repository;
 import pl.nojman.restaurant_api.Models.Dish;
 
 import java.util.*;
 
+@Repository
 public class DishRepository {
 
     private Set<Dish> dishes = new HashSet<>();
