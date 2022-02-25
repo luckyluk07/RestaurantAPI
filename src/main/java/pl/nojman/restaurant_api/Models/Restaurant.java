@@ -9,10 +9,10 @@ public class Restaurant {
     private String description;
 
     private Address address;
-    private int addressId;
+    private Long addressId;
 
     private List<Dish> dishes;
-    private List<Integer> dishesId;
+    private List<Long> dishesId;
 
     public Restaurant() {
     }
@@ -21,9 +21,9 @@ public class Restaurant {
                       String name,
                       String description,
                       Address address,
-                      int addressId,
+                      Long addressId,
                       List<Dish> dishes,
-                      List<Integer> dishesId) {
+                      List<Long> dishesId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -36,9 +36,9 @@ public class Restaurant {
     public Restaurant(String name,
                       String description,
                       Address address,
-                      int addressId,
+                      Long addressId,
                       List<Dish> dishes,
-                      List<Integer> dishesId) {
+                      List<Long> dishesId) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -79,11 +79,11 @@ public class Restaurant {
         this.address = address;
     }
 
-    public int getAddressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
 
@@ -95,11 +95,11 @@ public class Restaurant {
         this.dishes = dishes;
     }
 
-    public List<Integer> getDishesId() {
+    public List<Long> getDishesId() {
         return dishesId;
     }
 
-    public void setDishesId(List<Integer> dishesId) {
+    public void setDishesId(List<Long> dishesId) {
         this.dishesId = dishesId;
     }
 
