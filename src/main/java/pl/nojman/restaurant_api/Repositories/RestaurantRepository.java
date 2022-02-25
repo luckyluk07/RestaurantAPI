@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Repository
 public class RestaurantRepository {
-    private Set<Restaurant> restaurants = new HashSet<Restaurant>(List.of(new Restaurant(1L,"name","desc",null,0,null,null)));
+    private Set<Restaurant> restaurants = new HashSet<Restaurant>();
 
     public List<Restaurant> getAll() {
         return new ArrayList<>(restaurants);
