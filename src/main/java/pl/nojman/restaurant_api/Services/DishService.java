@@ -21,7 +21,11 @@ public class DishService {
         return this.repository.getAll();
     }
 
-    public Dish find(Long id) {
+    public List<Dish> findAll(Long restaurantId) {
+        return this.repository.getAllByRestaurantId(restaurantId);
+    }
+
+    public Dish find(Long restaurantId, Long id) {
         return this.repository.get(id);
     }
 

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import pl.nojman.restaurant_api.Models.Dish;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class DishRepository {
@@ -12,6 +13,10 @@ public class DishRepository {
 
     public List<Dish> getAll() {
         return new ArrayList<>(dishes);
+    }
+
+    public List<Dish> getAllByRestaurantId(Long restaurantId) {
+        return dishes.stream().filter(x -> x.getId() == restaurantId).collect(Collectors.toList());
     }
 
     public Dish get(Long id) {

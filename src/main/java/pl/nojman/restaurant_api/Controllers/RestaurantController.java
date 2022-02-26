@@ -26,7 +26,7 @@ public class RestaurantController {
 
     @GetMapping("/{id}")
     public Restaurant find(@PathVariable Long id) {
-        return this.service.getRestaurant(id);
+        return this.service.getRestaurant(id).get();
     }
 
     @PostMapping()

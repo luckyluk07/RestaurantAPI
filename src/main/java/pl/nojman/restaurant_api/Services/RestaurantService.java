@@ -6,6 +6,7 @@ import pl.nojman.restaurant_api.Models.Restaurant;
 import pl.nojman.restaurant_api.Repositories.RestaurantRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -21,8 +22,8 @@ public class RestaurantService {
         return this.repository.getAll();
     }
 
-    public Restaurant getRestaurant(Long id) {
-        return this.repository.get(id);
+    public Optional<Restaurant> getRestaurant(Long id) {
+        return Optional.ofNullable(this.repository.get(id));
     }
 
     public void createRestaurant(Restaurant restaurant) {
