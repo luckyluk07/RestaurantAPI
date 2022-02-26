@@ -8,20 +8,27 @@ public class Dish {
     private String description;
     private Double price;
 
+    private Restaurant restaurant;
+    private Long restaurantId;
+
     public Dish() {
     }
 
-    public Dish(Long id, String name, String description, Double price) {
+    public Dish(Long id, String name, String description, Double price, Restaurant restaurant, Long restaurantId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.restaurant = restaurant;
+        this.restaurantId = restaurantId;
     }
 
-    public Dish(String name, String description, Double price) {
+    public Dish(String name, String description, Double price, Restaurant restaurant, Long restaurantId) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.restaurant = restaurant;
+        this.restaurantId = restaurantId;
     }
 
     public Long getId() {

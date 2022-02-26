@@ -78,6 +78,33 @@ public class Initializator {
         this.restaurantService.createRestaurant(restaurant2);
         this.restaurantService.createRestaurant(restaurant3);
 
+        Dish dish1 = new Dish(
+                1L,
+                "dish1",
+                "description1",
+                10.0,
+                restaurant1,
+                restaurant1.getId()
+        );
+        Dish dish2 = new Dish(
+                2L,
+                "dish2",
+                "description2",
+                20.0,
+                restaurant2,
+                restaurant2.getId()
+        );
+        Dish dish3 = new Dish(
+                3L,
+                "dish3",
+                "description3",
+                30.0,
+                restaurant3,
+                restaurant3.getId()
+        );
 
+        this.dishService.create(dish1);
+        this.dishService.create(dish2);
+        this.dishService.create(dish3);
     }
 }
