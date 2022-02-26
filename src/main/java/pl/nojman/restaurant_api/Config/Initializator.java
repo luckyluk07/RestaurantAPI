@@ -73,5 +73,11 @@ public class Initializator {
                 null,
                 null
         );
+
+        this.restaurantService.createRestaurant(restaurant1);
+        this.restaurantService.createRestaurant(restaurant2);
+        this.restaurantService.createRestaurant(restaurant3);
+
+
     }
 }
