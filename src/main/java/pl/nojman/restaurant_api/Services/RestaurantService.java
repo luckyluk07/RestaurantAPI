@@ -26,8 +26,8 @@ public class RestaurantService {
         return Optional.ofNullable(this.repository.get(id));
     }
 
-    public void createRestaurant(Restaurant restaurant) {
-        this.repository.create(restaurant);
+    public Restaurant createRestaurant(Restaurant restaurant) {
+        return this.repository.create(restaurant);
     }
 
     public boolean deleteRestaurant(Long id) {

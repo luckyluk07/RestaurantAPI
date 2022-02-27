@@ -47,7 +47,8 @@ public class RestaurantRepository {
         return false;
     }
 
-    public void create(Restaurant restaurant) {
+    public Restaurant create(Restaurant restaurant) {
         restaurants.add(restaurant);
+        return restaurant;
     }
 }
