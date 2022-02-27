@@ -3,10 +3,7 @@ package pl.nojman.restaurant_api.Repositories;
 import org.springframework.stereotype.Repository;
 import pl.nojman.restaurant_api.Models.Restaurant;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class RestaurantRepository {
@@ -16,11 +13,14 @@ public class RestaurantRepository {
         return new ArrayList<>(restaurants);
     }
 
-    public Restaurant get(Long id) {
-        return restaurants.stream()
-                .filter(restaurant -> restaurant.getId() == id)
-                .findFirst()
-                .get();
+    public Optional<Restaurant> get(Long id) {
+        Restaurant restaurant = null;
+        for (var tmp : restaurants) {
+            if (tmp.getId() == id) {
+                restaurant = tmp;
+            }
+        }
+        return Optional.ofNullable(restaurant);
     }
 
     public boolean delete(Long id) {

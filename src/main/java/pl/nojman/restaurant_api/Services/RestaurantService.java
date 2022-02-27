@@ -23,7 +23,7 @@ public class RestaurantService {
     }
 
     public Optional<Restaurant> getRestaurant(Long id) {
-        return Optional.ofNullable(this.repository.get(id));
+        return this.repository.get(id);
     }
 
     public Restaurant createRestaurant(Restaurant restaurant) {
