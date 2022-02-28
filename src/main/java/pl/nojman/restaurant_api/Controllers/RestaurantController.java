@@ -1,15 +1,14 @@
 package pl.nojman.restaurant_api.Controllers;
 
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import pl.nojman.restaurant_api.Dtos.RestaurantGetDto;
+import pl.nojman.restaurant_api.Mappers.Mapper;
 import pl.nojman.restaurant_api.Models.Restaurant;
 import pl.nojman.restaurant_api.Services.RestaurantService;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
