@@ -1,6 +1,7 @@
 package pl.nojman.restaurant_api.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -13,14 +14,18 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/restaurants")
+@RequestMapping(
+        value = "api/restaurants"
+)
 public class RestaurantController {
 
     private RestaurantService service;
+    private Mapper mapper;
 
     @Autowired
-    public RestaurantController(RestaurantService service) {
+    public RestaurantController(RestaurantService service, Mapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @GetMapping()
@@ -28,11 +33,11 @@ public class RestaurantController {
         return this.service.getAllRestaurant();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> find(@PathVariable Long id) {
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<RestaurantGetDto> find(@PathVariable Long id) {
         Optional<Restaurant> restaurant = this.service.getRestaurant(id);
         if (restaurant.isPresent()) {
-            return ResponseEntity.ok(restaurant.get());
+            return ResponseEntity.ok(this.mapper.toRestaurantGetDto(restaurant.get()));
         }
         return ResponseEntity.notFound().build();
     }
