@@ -1,6 +1,8 @@
 package pl.nojman.restaurant_api.Repositories;
 
 import org.springframework.stereotype.Repository;
+import pl.nojman.restaurant_api.Dtos.RestaurantDto;
+import pl.nojman.restaurant_api.Models.Address;
 import pl.nojman.restaurant_api.Models.Restaurant;
 
 import java.util.*;
@@ -8,6 +10,7 @@ import java.util.*;
 @Repository
 public class RestaurantRepository {
     private Set<Restaurant> restaurants = new HashSet<Restaurant>();
+    private Long idCounter = 0L;
 
     public List<Restaurant> getAll() {
         return new ArrayList<>(restaurants);
@@ -35,19 +38,22 @@ public class RestaurantRepository {
         return false;
     }
 
-    public boolean update(Restaurant restaurant) {
-        Restaurant existingRestaurant = restaurants.stream()
-                .filter(r -> r.getId() == restaurant.getId())
-                .findFirst()
-                .get();
-        if (restaurants.contains(existingRestaurant)) {
-            existingRestaurant = restaurant;
-            return true;
-        }
-        return false;
+    public boolean update(RestaurantDto dto, Restaurant restaurant) {
+        this.restaurants.remove(restaurant);
+        this.restaurants.add(new Restaurant(
+                restaurant.getId(),
+                dto.getName(),
+                dto.getDescription(),
+                new Address(dto.getCity(), dto.getStreet(), dto.getNumber()),
+                -1L,
+                null,
+                null
+        ));
+        return true;
     }
 
     public Restaurant create(Restaurant restaurant) {
+        restaurant.setId(++idCounter);
         restaurants.add(restaurant);
         return restaurant;
     }

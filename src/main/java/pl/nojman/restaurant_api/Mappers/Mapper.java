@@ -3,10 +3,8 @@ package pl.nojman.restaurant_api.Mappers;
 import org.springframework.stereotype.Component;
 import pl.nojman.restaurant_api.Dtos.RestaurantDto;
 import pl.nojman.restaurant_api.Models.Address;
-import pl.nojman.restaurant_api.Models.Dish;
 import pl.nojman.restaurant_api.Models.Restaurant;
 
-import java.util.List;
 
 @Component
 public class Mapper {

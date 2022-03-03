@@ -11,6 +11,7 @@ import pl.nojman.restaurant_api.Services.RestaurantService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(
@@ -28,8 +29,8 @@ public class RestaurantController {
     }
 
     @GetMapping()
-    public List<Restaurant> findAll() {
-        return this.service.getAllRestaurant();
+    public List<RestaurantDto> findAll() {
+        return this.service.getAllRestaurant().stream().map(x -> mapper.restaurantModelToDto(x)).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/{id}")
@@ -57,7 +58,7 @@ public class RestaurantController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody RestaurantDto restaurnatDto) {
-        if (this.service.updateRestaurant(restaurnatDto)) {
+        if (this.service.updateRestaurant(restaurnatDto, id)) {
             return ResponseEntity.accepted().build();
         }
         return ResponseEntity.notFound().build();

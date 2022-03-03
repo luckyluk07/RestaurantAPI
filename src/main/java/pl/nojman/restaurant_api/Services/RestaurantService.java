@@ -43,8 +43,11 @@ public class RestaurantService {
         return this.repository.delete(id);
     }
 
-    public boolean updateRestaurant(RestaurantDto restaurantDto) {
-        Restaurant restaurantToUpdate = this.mapper.dtoToRestaurantModel(restaurantDto);
-        return this.repository.update(restaurantToUpdate);
+    public boolean updateRestaurant(RestaurantDto restaurantDto, Long id) {
+        if (getRestaurant(id).isPresent()) {
+            Restaurant restaurantToUpdate = this.mapper.dtoToRestaurantModel(restaurantDto);
+            return this.repository.update(restaurantDto, restaurantToUpdate);
+        }
+        return false;
     }
 }
