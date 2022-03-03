@@ -1,11 +1,10 @@
 package pl.nojman.restaurant_api.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.nojman.restaurant_api.Dtos.RestaurantGetDto;
+import pl.nojman.restaurant_api.Dtos.RestaurantDto;
 import pl.nojman.restaurant_api.Mappers.Mapper;
 import pl.nojman.restaurant_api.Models.Restaurant;
 import pl.nojman.restaurant_api.Services.RestaurantService;
@@ -34,17 +33,17 @@ public class RestaurantController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<RestaurantGetDto> find(@PathVariable Long id) {
+    public ResponseEntity<RestaurantDto> find(@PathVariable Long id) {
         Optional<Restaurant> restaurant = this.service.getRestaurant(id);
         if (restaurant.isPresent()) {
-            return ResponseEntity.ok(this.mapper.toRestaurantGetDto(restaurant.get()));
+            return ResponseEntity.ok(this.mapper.restaurantModelToDto(restaurant.get()));
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping()
-    public ResponseEntity<Void> create(@RequestBody Restaurant restaurant, UriComponentsBuilder builder) {
-        Restaurant tmpRestaurant = this.service.createRestaurant(restaurant);
+    public ResponseEntity<Void> create(@RequestBody RestaurantDto restaurantDto, UriComponentsBuilder builder) {
+        Restaurant tmpRestaurant = this.service.createRestaurant(restaurantDto);
         return ResponseEntity.created(builder.pathSegment("api", "restaurants", "{id}").buildAndExpand(tmpRestaurant.getId()).toUri()).build();
     }
 
@@ -57,8 +56,8 @@ public class RestaurantController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Restaurant restaurant) {
-        if (this.service.updateRestaurant(restaurant)) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody RestaurantDto restaurnatDto) {
+        if (this.service.updateRestaurant(restaurnatDto)) {
             return ResponseEntity.accepted().build();
         }
         return ResponseEntity.notFound().build();

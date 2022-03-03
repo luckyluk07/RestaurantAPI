@@ -2,9 +2,7 @@ package pl.nojman.restaurant_api.Dtos;
 
 import pl.nojman.restaurant_api.Models.Restaurant;
 
-import java.util.Objects;
-
-public class RestaurantGetDto {
+public class RestaurantDto {
     private final String name;
     private final String description;
 
@@ -12,7 +10,7 @@ public class RestaurantGetDto {
     private final String street;
     private final String number;
 
-    public RestaurantGetDto(String name, String description, String city, String street, String number) {
+    public RestaurantDto(String name, String description, String city, String street, String number) {
         this.name = name;
         this.description = description;
         this.city = city;
@@ -40,8 +38,8 @@ public class RestaurantGetDto {
         return number;
     }
 
-    public static RestaurantGetDto entityToDto(Restaurant restaurant) {
-        return new RestaurantGetDto(
+    public static RestaurantDto entityToDto(Restaurant restaurant) {
+        return new RestaurantDto(
                 restaurant.getName(),
                 restaurant.getDescription(),
                 restaurant.getAddress().getCity(),
