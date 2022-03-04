@@ -2,6 +2,8 @@ package pl.nojman.restaurant_api.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.nojman.restaurant_api.Dtos.DishDto;
+import pl.nojman.restaurant_api.Mappers.Mapper;
 import pl.nojman.restaurant_api.Models.Dish;
 import pl.nojman.restaurant_api.Models.Restaurant;
 import pl.nojman.restaurant_api.Repositories.IDishRepository;
@@ -14,11 +16,13 @@ public class DishService {
 
     private RestaurantService restaurantService;
     private IDishRepository repository;
+    private Mapper mapper;
 
     @Autowired
-    public DishService(IDishRepository repository, RestaurantService restaurantService) {
+    public DishService(IDishRepository repository, RestaurantService restaurantService, Mapper mapper) {
         this.repository = repository;
         this.restaurantService = restaurantService;
+        this.mapper = mapper;
     }
 
     public List<Dish> findAll() {
@@ -43,8 +47,8 @@ public class DishService {
         this.repository.deleteById(id);
     }
 
-    public void update(Dish dish) {
-        this.repository.save(dish);
+    public void update(DishDto dishDto) {
+        this.repository.save(this.mapper.dtoToDishModel(dishDto));
     }
 
 }

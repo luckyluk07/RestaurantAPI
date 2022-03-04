@@ -37,14 +37,4 @@ public class RestaurantDto {
     public String getNumber() {
         return number;
     }
-
-    public static RestaurantDto entityToDto(Restaurant restaurant) {
-        return new RestaurantDto(
-                restaurant.getName(),
-                restaurant.getDescription(),
-                restaurant.getAddress().getCity(),
-                restaurant.getAddress().getStreet(),
-                restaurant.getAddress().getNumber()
-        );
-    }
 }
