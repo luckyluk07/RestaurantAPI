@@ -24,28 +24,24 @@ public class Initializer {
     @PostConstruct
     public void init() {
         Address address1 = new Address(
-                1L,
                 "Lubawa",
                 "Krolowej Jadwigi",
                 "6"
         );
 
         Address address2 = new Address(
-                2L,
                 "Gdansk",
                 "Krynicka",
                 "7"
         );
 
         Address address3 = new Address(
-                3L,
                 "Kazanice",
                 "Polna",
                 "5"
         );
 
         Restaurant restaurant1 = new Restaurant(
-                1L,
                 "name1",
                 "description1",
                 address1,
@@ -53,7 +49,6 @@ public class Initializer {
         );
 
         Restaurant restaurant2 = new Restaurant(
-                2L,
                 "name2",
                 "description2",
                 address2,
@@ -61,7 +56,6 @@ public class Initializer {
         );
 
         Restaurant restaurant3 = new Restaurant(
-                3L,
                 "name3",
                 "description3",
                 address3,

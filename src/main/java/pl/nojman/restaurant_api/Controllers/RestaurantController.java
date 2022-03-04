@@ -50,15 +50,19 @@ public class RestaurantController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (this.service.deleteRestaurant(id)) {
+        Optional<Restaurant> restaurant = this.service.getRestaurant(id);
+        if (restaurant.isPresent()) {
+            this.service.deleteRestaurant(id);
             return ResponseEntity.accepted().build();
         }
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody RestaurantDto restaurnatDto) {
-        if (this.service.updateRestaurant(restaurnatDto, id)) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody RestaurantDto restaurantDto) {
+        Optional<Restaurant> restaurant = this.service.getRestaurant(id);
+        if (restaurant.isPresent()) {
+            this.service.updateRestaurant(restaurantDto, id);
             return ResponseEntity.accepted().build();
         }
         return ResponseEntity.notFound().build();

@@ -22,7 +22,6 @@ public class Mapper {
         String name = dto.getName();
         String description = dto.getDescription();
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getNumber());
-        Long addressId = 0L;
         return new Restaurant(name, description, address, null);
     }
 
