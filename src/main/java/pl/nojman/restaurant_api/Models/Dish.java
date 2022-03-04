@@ -1,34 +1,37 @@
 package pl.nojman.restaurant_api.Models;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 public class Dish {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String description;
     private Double price;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
-    private Long restaurantId;
 
     public Dish() {
     }
 
-    public Dish(Long id, String name, String description, Double price, Restaurant restaurant, Long restaurantId) {
+    public Dish(Long id, String name, String description, Double price, Restaurant restaurant) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.restaurant = restaurant;
-        this.restaurantId = restaurantId;
     }
 
-    public Dish(String name, String description, Double price, Restaurant restaurant, Long restaurantId) {
+    public Dish(String name, String description, Double price, Restaurant restaurant) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.restaurant = restaurant;
-        this.restaurantId = restaurantId;
     }
 
     public Long getId() {

@@ -11,12 +11,12 @@ import pl.nojman.restaurant_api.Services.RestaurantService;
 import javax.annotation.PostConstruct;
 
 @Component
-public class Initializator {
+public class Initializer {
     private RestaurantService restaurantService;
     private DishService dishService;
 
     @Autowired
-    public Initializator(RestaurantService restaurantService, DishService dishService) {
+    public Initializer(RestaurantService restaurantService, DishService dishService) {
         this.restaurantService = restaurantService;
         this.dishService = dishService;
     }
@@ -49,8 +49,6 @@ public class Initializator {
                 "name1",
                 "description1",
                 address1,
-                address1.getId(),
-                null,
                 null
         );
 
@@ -59,8 +57,6 @@ public class Initializator {
                 "name2",
                 "description2",
                 address2,
-                address2.getId(),
-                null,
                 null
         );
 
@@ -69,8 +65,6 @@ public class Initializator {
                 "name3",
                 "description3",
                 address3,
-                address3.getId(),
-                null,
                 null
         );
 
@@ -83,24 +77,21 @@ public class Initializator {
                 "dish1",
                 "description1",
                 10.0,
-                restaurant1,
-                restaurant1.getId()
+                restaurant1
         );
         Dish dish2 = new Dish(
                 2L,
                 "dish2",
                 "description2",
                 20.0,
-                restaurant2,
-                restaurant2.getId()
+                restaurant2
         );
         Dish dish3 = new Dish(
                 3L,
                 "dish3",
                 "description3",
                 30.0,
-                restaurant3,
-                restaurant3.getId()
+                restaurant3
         );
 
         this.dishService.create(dish1);

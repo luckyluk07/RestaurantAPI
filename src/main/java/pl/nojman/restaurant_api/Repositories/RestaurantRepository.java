@@ -45,8 +45,6 @@ public class RestaurantRepository {
                 dto.getName(),
                 dto.getDescription(),
                 new Address(dto.getCity(), dto.getStreet(), dto.getNumber()),
-                -1L,
-                null,
                 null
         ));
         return true;

@@ -1,18 +1,25 @@
 package pl.nojman.restaurant_api.Models;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+@Entity(name = "restaurant")
+@Table(name = "RESTAURANTS")
 public class Restaurant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "RESTAURANT_NAME", nullable = false, unique = true)
     private String name;
     private String description;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
-    private Long addressId;
 
+    @OneToMany(mappedBy = "restaurant")
     private List<Dish> dishes;
-    private List<Long> dishesId;
 
     public Restaurant() {
     }
@@ -21,30 +28,22 @@ public class Restaurant {
                       String name,
                       String description,
                       Address address,
-                      Long addressId,
-                      List<Dish> dishes,
-                      List<Long> dishesId) {
+                      List<Dish> dishes) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.address = address;
-        this.addressId = addressId;
         this.dishes = dishes;
-        this.dishesId = dishesId;
     }
 
     public Restaurant(String name,
                       String description,
                       Address address,
-                      Long addressId,
-                      List<Dish> dishes,
-                      List<Long> dishesId) {
+                      List<Dish> dishes) {
         this.name = name;
         this.description = description;
-        this.address = address;
-        this.addressId = addressId;
-        this.dishes = dishes;
-        this.dishesId = dishesId;
+        this.address = address;;
+        this.dishes = dishes;;
     }
 
     public Long getId() {
@@ -79,14 +78,6 @@ public class Restaurant {
         this.address = address;
     }
 
-    public Long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
-    }
-
     public List<Dish> getDishes() {
         return dishes;
     }
@@ -95,25 +86,17 @@ public class Restaurant {
         this.dishes = dishes;
     }
 
-    public List<Long> getDishesId() {
-        return dishesId;
-    }
-
-    public void setDishesId(List<Long> dishesId) {
-        this.dishesId = dishesId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Restaurant that = (Restaurant) o;
-        return addressId == that.addressId && id.equals(that.id) && name.equals(that.name) && description.equals(that.description) && address.equals(that.address) && dishes.equals(that.dishes) && dishesId.equals(that.dishesId);
+        return id.equals(that.id) && name.equals(that.name) && description.equals(that.description) && address.equals(that.address) && dishes.equals(that.dishes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, address, addressId, dishes, dishesId);
+        return Objects.hash(id, name, description, address, dishes);
     }
 
     @Override
@@ -123,9 +106,7 @@ public class Restaurant {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", address=" + address +
-                ", addressId=" + addressId +
                 ", dishes=" + dishes +
-                ", dishesId=" + dishesId +
                 '}';
     }
 }

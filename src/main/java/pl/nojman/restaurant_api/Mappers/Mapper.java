@@ -23,7 +23,7 @@ public class Mapper {
         String description = dto.getDescription();
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getNumber());
         Long addressId = 0L;
-        return new Restaurant(name, description, address, addressId, null, null);
+        return new Restaurant(name, description, address, null);
     }
 
 }
