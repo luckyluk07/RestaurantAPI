@@ -35,7 +35,7 @@ public class DishController {
 
     @GetMapping("/{dishId}")
     public Dish getDish(@PathVariable long restaurantId, @PathVariable long dishId) {
-        return this.service.find(restaurantId, dishId);
+        return this.service.find(restaurantId, dishId).get();
     }
 
     @PostMapping()
