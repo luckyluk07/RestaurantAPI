@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import pl.nojman.restaurant_api.Models.Address;
 import pl.nojman.restaurant_api.Models.Dish;
 import pl.nojman.restaurant_api.Models.Restaurant;
+import pl.nojman.restaurant_api.Repositories.AddressRepository;
 import pl.nojman.restaurant_api.Services.DishService;
 import pl.nojman.restaurant_api.Services.RestaurantService;
 
@@ -12,13 +13,17 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class Initializer {
-    private RestaurantService restaurantService;
-    private DishService dishService;
+    private final RestaurantService restaurantService;
+    private final DishService dishService;
+    private final AddressRepository addressRepository;
 
     @Autowired
-    public Initializer(RestaurantService restaurantService, DishService dishService) {
+    public Initializer(RestaurantService restaurantService,
+                       DishService dishService,
+                       AddressRepository addressRepository) {
         this.restaurantService = restaurantService;
         this.dishService = dishService;
+        this.addressRepository = addressRepository;
     }
 
     @PostConstruct
@@ -40,6 +45,10 @@ public class Initializer {
                 "Polna",
                 "5"
         );
+
+        this.addressRepository.save(address1);
+        this.addressRepository.save(address2);
+        this.addressRepository.save(address3);
 
         Restaurant restaurant1 = new Restaurant(
                 "name1",
