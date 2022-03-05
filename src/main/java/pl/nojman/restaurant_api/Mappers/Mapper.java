@@ -34,11 +34,11 @@ public class Mapper {
         return new DishDto(name, description, prize);
     }
 
-    public Dish dtoToDishModel(DishDto dto) {
+    public Dish dtoToDishModel(DishDto dto, Restaurant restaurant) {
         String name = dto.getName();
         String description = dto.getDescription();
         Double prize = dto.getPrice();
-        return new Dish(name, description, prize, null);
+        return new Dish(name, description, prize, restaurant);
     }
 
 }

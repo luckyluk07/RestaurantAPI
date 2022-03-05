@@ -8,6 +8,7 @@ import pl.nojman.restaurant_api.Models.Dish;
 import pl.nojman.restaurant_api.Models.Restaurant;
 import pl.nojman.restaurant_api.Repositories.IDishRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,16 +40,21 @@ public class DishService {
         return this.repository.findByIdAndRestaurant(id, restaurant);
     }
 
-    public void create(Dish dish) {
-        this.repository.save(dish);
+    public Dish create(Dish dish) {
+        return this.repository.save(dish);
+    }
+
+    public Dish create(DishDto dto, Restaurant restaurant) {
+        Dish dish = this.mapper.dtoToDishModel(dto, restaurant);
+        return this.repository.save(dish);
     }
 
     public void delete(Long id) {
         this.repository.deleteById(id);
     }
 
-    public void update(DishDto dishDto) {
-        this.repository.save(this.mapper.dtoToDishModel(dishDto));
+    public void update(DishDto dishDto, Restaurant restaurant) {
+        this.repository.save(this.mapper.dtoToDishModel(dishDto, restaurant));
     }
 
 }

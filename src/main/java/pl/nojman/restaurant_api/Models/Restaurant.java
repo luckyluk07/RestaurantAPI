@@ -14,7 +14,7 @@ public class Restaurant {
     private String name;
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
