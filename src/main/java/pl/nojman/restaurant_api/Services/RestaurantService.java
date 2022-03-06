@@ -3,6 +3,7 @@ package pl.nojman.restaurant_api.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.nojman.restaurant_api.Dtos.RestaurantDto;
 import pl.nojman.restaurant_api.Mappers.Mapper;
 import pl.nojman.restaurant_api.Models.Address;
@@ -51,11 +52,13 @@ public class RestaurantService {
         this.repository.deleteById(id);
     }
 
+    @Transactional
     public void updateRestaurant(RestaurantDto restaurantDto, Long id) {
         if (getRestaurant(id).isPresent()) {
             Pair<Restaurant, Address> restaurantAddressPair = this.mapper.dtoToRestaurantModel(restaurantDto);
-            this.addressRepository.save(restaurantAddressPair.getSecond());
-            this.repository.save( restaurantAddressPair.getFirst());
+            Restaurant restaurant = restaurantAddressPair.getFirst();
+            //this.addressRepository.save(restaurantAddressPair.getSecond());
+            this.repository.updateRestaurant(getRestaurant(id).get().getName(), restaurant.getDescription());
         }
     }
 }
