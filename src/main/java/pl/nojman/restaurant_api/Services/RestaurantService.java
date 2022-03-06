@@ -1,10 +1,13 @@
 package pl.nojman.restaurant_api.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import pl.nojman.restaurant_api.Dtos.RestaurantDto;
 import pl.nojman.restaurant_api.Mappers.Mapper;
+import pl.nojman.restaurant_api.Models.Address;
 import pl.nojman.restaurant_api.Models.Restaurant;
+import pl.nojman.restaurant_api.Repositories.IAddressRepository;
 import pl.nojman.restaurant_api.Repositories.IRestaurantRepository;
 
 import java.util.List;
@@ -14,11 +17,15 @@ import java.util.Optional;
 public class RestaurantService {
 
     private IRestaurantRepository repository;
+    private IAddressRepository addressRepository;
     private Mapper mapper;
 
     @Autowired
-    public RestaurantService(IRestaurantRepository repository, Mapper mapper) {
+    public RestaurantService(IRestaurantRepository repository,
+                             IAddressRepository addressRepository ,
+                             Mapper mapper) {
         this.repository = repository;
+        this.addressRepository = addressRepository;
         this.mapper = mapper;
     }
 
@@ -31,8 +38,9 @@ public class RestaurantService {
     }
 
     public Restaurant createRestaurant(RestaurantDto restaurantDto) {
-        Restaurant restaurantToCreate = this.mapper.dtoToRestaurantModel(restaurantDto);
-        return this.repository.save(restaurantToCreate);
+        Pair<Restaurant, Address> restaurantAddressPair = this.mapper.dtoToRestaurantModel(restaurantDto);
+        this.addressRepository.save(restaurantAddressPair.getSecond());
+        return this.repository.save(restaurantAddressPair.getFirst());
     }
 
     public Restaurant createRestaurant(Restaurant restaurant) {
@@ -45,8 +53,9 @@ public class RestaurantService {
 
     public void updateRestaurant(RestaurantDto restaurantDto, Long id) {
         if (getRestaurant(id).isPresent()) {
-            Restaurant restaurantToUpdate = this.mapper.dtoToRestaurantModel(restaurantDto);
-            this.repository.save( restaurantToUpdate);
+            Pair<Restaurant, Address> restaurantAddressPair = this.mapper.dtoToRestaurantModel(restaurantDto);
+            this.addressRepository.save(restaurantAddressPair.getSecond());
+            this.repository.save( restaurantAddressPair.getFirst());
         }
     }
 }

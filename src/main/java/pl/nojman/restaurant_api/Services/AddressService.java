@@ -3,15 +3,15 @@ package pl.nojman.restaurant_api.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.nojman.restaurant_api.Models.Address;
-import pl.nojman.restaurant_api.Repositories.AddressRepository;
+import pl.nojman.restaurant_api.Repositories.IAddressRepository;
 
 @Service
 public class AddressService {
 
-    private AddressRepository repository;
+    private IAddressRepository repository;
 
     @Autowired
-    public AddressService(AddressRepository addressRepository) {
+    public AddressService(IAddressRepository addressRepository) {
         this.repository = addressRepository;
     }
 

@@ -10,7 +10,7 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "RESTAURANT_NAME", nullable = false, unique = true)
+    //@Column(name = "RESTAURANT_NAME", nullable = false, unique = true)
     private String name;
     private String description;
 
@@ -18,7 +18,7 @@ public class Restaurant {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE)
     private List<Dish> dishes;
 
     public Restaurant() {

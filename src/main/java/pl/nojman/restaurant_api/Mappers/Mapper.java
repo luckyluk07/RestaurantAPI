@@ -1,5 +1,6 @@
 package pl.nojman.restaurant_api.Mappers;
 
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import pl.nojman.restaurant_api.Dtos.DishDto;
 import pl.nojman.restaurant_api.Dtos.RestaurantDto;
@@ -20,11 +21,11 @@ public class Mapper {
         return new RestaurantDto(name, description, city, street, number);
     }
 
-    public Restaurant dtoToRestaurantModel(RestaurantDto dto) {
+    public Pair<Restaurant, Address> dtoToRestaurantModel(RestaurantDto dto) {
         String name = dto.getName();
         String description = dto.getDescription();
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getNumber());
-        return new Restaurant(name, description, address, null);
+        return Pair.of(new Restaurant(name, description, address, null), address);
     }
 
     public DishDto dishModelToDto(Dish dish) {
