@@ -46,9 +46,12 @@ public class DishController {
     @GetMapping("/{dishId}")
     public ResponseEntity<DishDto> getDish(@PathVariable long restaurantId,
                                            @PathVariable long dishId) {
-        Optional<Dish> dish = this.service.find(restaurantId, dishId);
-        if (dish.isPresent()) {
-            return ResponseEntity.ok(this.mapper.dishModelToDto(dish.get()));
+        Optional<Restaurant> restaurant = this.restaurantService.getRestaurant(restaurantId);
+        if (restaurant.isPresent()) {
+            Optional<Dish> dish = this.service.find(restaurantId, dishId);
+            if (dish.isPresent()) {
+                return ResponseEntity.ok(this.mapper.dishModelToDto(dish.get()));
+            }
         }
         return ResponseEntity.notFound().build();
     }
@@ -59,7 +62,9 @@ public class DishController {
         Optional<Restaurant> restaurant = this.restaurantService.getRestaurant(restaurantId);
         if (restaurant.isPresent()) {
             Dish dish = this.service.create(dishDto, restaurant.get());
-            return ResponseEntity.created(builder.pathSegment("api","restaurants","dishes").buildAndExpand(restaurant.get().getId(),dish.getId()).toUri()).build();
+            return ResponseEntity.created(builder.pathSegment("api","restaurants","{restaurantId}","dishes", "{dishId}")
+                                .buildAndExpand(restaurant.get().getId(),dish.getId())
+                                .toUri()).build();
         }
         return ResponseEntity.notFound().build();
     }
@@ -86,7 +91,7 @@ public class DishController {
         if (restaurant.isPresent()) {
             Optional<Dish> dish = this.service.find(restaurantId, dishId);
             if (dish.isPresent()) {
-                this.service.update(dishDto, restaurant.get());
+                this.service.update(dish.get().getName(), dishDto);
                 return ResponseEntity.accepted().build();
             }
         }

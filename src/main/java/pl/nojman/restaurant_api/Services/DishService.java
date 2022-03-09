@@ -2,13 +2,13 @@ package pl.nojman.restaurant_api.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.nojman.restaurant_api.Dtos.DishDto;
 import pl.nojman.restaurant_api.Mappers.Mapper;
 import pl.nojman.restaurant_api.Models.Dish;
 import pl.nojman.restaurant_api.Models.Restaurant;
 import pl.nojman.restaurant_api.Repositories.IDishRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,8 +53,9 @@ public class DishService {
         this.repository.deleteById(id);
     }
 
-    public void update(DishDto dishDto, Restaurant restaurant) {
-        this.repository.save(this.mapper.dtoToDishModel(dishDto, restaurant));
+    @Transactional
+    public void update(String dishName, DishDto dishDto) {
+        this.repository.updateDish(dishName, dishDto.getDescription(), dishDto.getPrice());
     }
 
 }
