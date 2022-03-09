@@ -28,74 +28,71 @@ public class Initializer {
 
     @PostConstruct
     public void init() {
-        Address address1 = new Address(
-                "Lubawa",
-                "Krolowej Jadwigi",
-                "6"
-        );
+        Address address1 = Address.builder()
+                .city("Lubawa")
+                .street("Królowej Jadwigi")
+                .number("6")
+                .build();
 
-        Address address2 = new Address(
-                "Gdansk",
-                "Krynicka",
-                "7"
-        );
+        Address address2 = Address.builder()
+                        .city("Gdansk")
+                        .street("Krynicka")
+                        .number("7")
+                        .build();
 
-        Address address3 = new Address(
-                "Kazanice",
-                "Polna",
-                "5"
-        );
+
+        Address address3 = Address.builder()
+                .city("Kazanice")
+                .street("Kazanice")
+                .number("5")
+                .build();
 
         this.addressRepository.save(address1);
         this.addressRepository.save(address2);
         this.addressRepository.save(address3);
 
-        Restaurant restaurant1 = new Restaurant(
-                "name1",
-                "description1",
-                address1,
-                null
-        );
+        Restaurant restaurant1 = Restaurant.builder()
+                .name("name1")
+                .description("description1")
+                .address(address1)
+                .build();
 
-        Restaurant restaurant2 = new Restaurant(
-                "name2",
-                "description2",
-                address2,
-                null
-        );
+        Restaurant restaurant2 = Restaurant.builder()
+                .name("name2")
+                .description("description2")
+                .address(address2)
+                .build();
 
-        Restaurant restaurant3 = new Restaurant(
-                "name3",
-                "description3",
-                address3,
-                null
-        );
+        Restaurant restaurant3 = Restaurant.builder()
+                .name("name3")
+                .description("description3")
+                .address(address3)
+                .build();
 
         this.restaurantService.createRestaurant(restaurant1);
         this.restaurantService.createRestaurant(restaurant2);
         this.restaurantService.createRestaurant(restaurant3);
 
-        Dish dish1 = new Dish(
-                1L,
-                "dish1",
-                "description1",
-                10.0,
-                restaurant1
-        );
-        Dish dish2 = new Dish(
-                2L,
-                "dish2",
-                "description2",
-                20.0,
-                restaurant2
-        );
-        Dish dish3 = new Dish(
-                3L,
-                "dish3",
-                "description3",
-                30.0,
-                restaurant3
-        );
+        Dish dish1 = Dish.builder()
+                .name("dish1")
+                .description("description1")
+                .price(10.0)
+                .restaurant(restaurant1)
+                .build();
+
+        Dish dish2 = Dish.builder()
+                .name("dish2")
+                .description("description2")
+                .price(20.0)
+                .restaurant(restaurant2)
+                .build();
+
+        Dish dish3 = Dish.builder()
+                .name("dish3")
+                .description("description3")
+                .price(30.0)
+                .restaurant(restaurant3)
+                .build();
 
         this.dishService.create(dish1);
         this.dishService.create(dish2);

@@ -1,25 +1,12 @@
 package pl.nojman.restaurant_api.Dtos;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public class DishDto {
     private String name;
     private String description;
     private Double price;
-
-    public DishDto(String name, String description, Double price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
 }

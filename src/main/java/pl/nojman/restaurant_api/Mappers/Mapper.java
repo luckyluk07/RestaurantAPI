@@ -24,8 +24,12 @@ public class Mapper {
     public Pair<Restaurant, Address> dtoToRestaurantModel(RestaurantDto dto) {
         String name = dto.getName();
         String description = dto.getDescription();
-        Address address = new Address(dto.getCity(), dto.getStreet(), dto.getNumber());
-        return Pair.of(new Restaurant(name, description, address, null), address);
+        Address address = Address.builder()
+                .city(dto.getCity())
+                .street(dto.getStreet())
+                .number(dto.getNumber())
+                .build();
+        return Pair.of(Restaurant.builder().name(name).description(description).address(address).build(), address);
     }
 
     public DishDto dishModelToDto(Dish dish) {
@@ -39,7 +43,12 @@ public class Mapper {
         String name = dto.getName();
         String description = dto.getDescription();
         Double prize = dto.getPrice();
-        return new Dish(name, description, prize, restaurant);
-    }
+        return Dish.builder()
+                    .name(name)
+                    .description(description)
+                    .price(prize)
+                    .restaurant(restaurant).
+                    build();
+        }
 
 }
